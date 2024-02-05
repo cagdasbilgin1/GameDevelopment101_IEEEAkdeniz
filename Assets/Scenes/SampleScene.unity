@@ -550,7 +550,7 @@ MonoBehaviour:
   down: 115
   left: 97
   right: 100
-  moveSpeed: 200
+  moveSpeed: 20
 --- !u!54 &1340170356
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -559,7 +559,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340170350}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.005
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -701,7 +701,7 @@ MonoBehaviour:
   down: 274
   left: 276
   right: 275
-  moveSpeed: 200
+  moveSpeed: 20
 --- !u!54 &2020492309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -710,8 +710,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020492303}
   serializedVersion: 4
-  m_Mass: 0.01
-  m_Drag: 0
+  m_Mass: 0.005
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
