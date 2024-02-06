@@ -1,19 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class CubeDemo : MonoBehaviour
+public class BallDemo : MonoBehaviour
 {
     [SerializeField] KeyCode up = KeyCode.W;
     [SerializeField] KeyCode down = KeyCode.S;
     [SerializeField] KeyCode left = KeyCode.A;
     [SerializeField] KeyCode right = KeyCode.D;
     [SerializeField] float moveSpeed;
+    [SerializeField] GameManager gameManager;
+
+
     Rigidbody _rb;
+    Material _material;
+
+    public Material Material => _material;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _material = GetComponent<MeshRenderer>().material;
     }
 
     private void Update()
@@ -44,23 +52,27 @@ public class CubeDemo : MonoBehaviour
             vertical = 1f;
         }
 
-        Vector3 movement = new Vector3(horizontal, vertical, 0) * moveSpeed * Time.deltaTime;
+        Vector3 movement = new Vector3(horizontal, 0f, vertical) * moveSpeed * Time.deltaTime;
         _rb.AddForce(movement);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("OnTriggerEnter Run");
-    }
 
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("OnTriggerStay Run");
+        if(collision.gameObject.TryGetComponent<Cube>(out var cube))
+        {
+            if (cube.Material.color.CompareRGB(_material.color)) return;
 
+            gameManager.UpdateColorCount(_material, cube.IsPaintedBefore);
+            cube.Paint(_material);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("OnTriggerExit Run");
+        if (other.CompareTag("GameArea"))
+        {
+            gameManager.EliminateBall(this);
+        }
     }
 }
